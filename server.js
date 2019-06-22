@@ -14,7 +14,6 @@ var mailer = require("nodemailer");
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/wines"
 
-
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 app.use(express.urlencoded({ extended: true }));
