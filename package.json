@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://88dennis.github.io/tannin-app-final.git"
+    "url": "git+https://github.com/88dennis/tannin-app-final.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://88dennis.github.io/tannin-app-final/issues"
+    "url": "https://github.com/88dennis/tannin-app-final/issues"
   },
-  "homepage": "https://88dennis.github.io/tannin-app-final#readme",
+  "homepage": "https://github.com/88dennis/tannin-app-final#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^2.0.3",
