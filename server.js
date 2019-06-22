@@ -12,7 +12,6 @@ const mongoose = require('mongoose');
 var mailer = require("nodemailer");
 // const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/wines"
 
-
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/wines"
 
 
