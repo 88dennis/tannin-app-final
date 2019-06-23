@@ -10,8 +10,6 @@ const routes = require("./routes");
 const PORT = process.env.PORT || 3001;
 const mongoose = require('mongoose');
 var mailer = require("nodemailer");
-// const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/wines"
-
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/wines"
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
