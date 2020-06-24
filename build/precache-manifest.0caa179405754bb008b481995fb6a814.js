@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "af4d753807a3bbf3259d616e44fa75a9",
+    "revision": "25c5122c835f814f38ae1a9e6cb0623a",
     "url": "/tannin-app-client/index.html"
   },
   {
-    "revision": "d48d4a7cd31c5e051916",
+    "revision": "7b0a8f88929b081f6038",
     "url": "/tannin-app-client/static/css/main.553649bf.chunk.css"
   },
   {
-    "revision": "4e3f9e7fbc8d721b0011",
-    "url": "/tannin-app-client/static/js/2.2751c175.chunk.js"
+    "revision": "ceab3fe5ac2ca41d9628",
+    "url": "/tannin-app-client/static/js/2.62442c25.chunk.js"
   },
   {
-    "revision": "d48d4a7cd31c5e051916",
-    "url": "/tannin-app-client/static/js/main.e2fa5de4.chunk.js"
+    "revision": "7b0a8f88929b081f6038",
+    "url": "/tannin-app-client/static/js/main.d75a46dd.chunk.js"
   },
   {
     "revision": "4feedb98d83f7abbf9de",

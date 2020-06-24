@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/tannin-app-client/static/css/main.553649bf.chunk.css",
-    "main.js": "/tannin-app-client/static/js/main.e2fa5de4.chunk.js",
-    "main.js.map": "/tannin-app-client/static/js/main.e2fa5de4.chunk.js.map",
+    "main.js": "/tannin-app-client/static/js/main.d75a46dd.chunk.js",
+    "main.js.map": "/tannin-app-client/static/js/main.d75a46dd.chunk.js.map",
     "runtime~main.js": "/tannin-app-client/static/js/runtime~main.ee3452e9.js",
     "runtime~main.js.map": "/tannin-app-client/static/js/runtime~main.ee3452e9.js.map",
-    "static/js/2.2751c175.chunk.js": "/tannin-app-client/static/js/2.2751c175.chunk.js",
-    "static/js/2.2751c175.chunk.js.map": "/tannin-app-client/static/js/2.2751c175.chunk.js.map",
+    "static/js/2.62442c25.chunk.js": "/tannin-app-client/static/js/2.62442c25.chunk.js",
+    "static/js/2.62442c25.chunk.js.map": "/tannin-app-client/static/js/2.62442c25.chunk.js.map",
     "index.html": "/tannin-app-client/index.html",
-    "precache-manifest.03bb752bcc2676b2a546c85616453697.js": "/tannin-app-client/precache-manifest.03bb752bcc2676b2a546c85616453697.js",
+    "precache-manifest.0caa179405754bb008b481995fb6a814.js": "/tannin-app-client/precache-manifest.0caa179405754bb008b481995fb6a814.js",
     "service-worker.js": "/tannin-app-client/service-worker.js",
     "static/css/main.553649bf.chunk.css.map": "/tannin-app-client/static/css/main.553649bf.chunk.css.map"
   }
