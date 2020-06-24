@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/88dennis/tannin-app-final/issues"
   },
-  "homepage": "https://tanninwineapp.herokuapp.com/tannin-app-client/",
+  "homepage": "https://tanninwineapp.herokuapp.com/",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^2.0.3",
