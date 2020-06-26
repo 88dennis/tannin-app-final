@@ -55,14 +55,36 @@ var transporter = nodemailer.createTransport({
 //USER ROUTES - LOGIN, SIGNUP, LOGOUT
 //====================================
 
-app.get("/", function(req, res){
+// app.get("/", function(req, res){
 
-  let obj = { 
-    "admin" : "/api/admin/:id/:name",
-    "sigup" : '/api/user/signup'
-  }
-  res.json(obj) 
-});
+//   let obj = { 
+//     "admin" : "/api/admin/:id/:name",
+//     "sigup" : '/api/user/signup'
+//   }
+//   res.json(obj) 
+// });
+// app.get("/test/:name", async (req, res) => {
+
+//   try {
+//       const paramsName = req.params.name;
+//       console.log(req);
+//       console.log(paramsName)
+//        await db.Employees.find()
+//       .then(dbWine => {
+//         console.log(dbWine)
+//         res.status(200).json(dbWine)
+
+//       })
+//       .catch(err => res.status(422).json(err));
+      
+//   } catch {
+//       res.status(500).json({
+//           message: "Error connecting to db",
+//           error
+//       })
+//   }
+
+// }),
 
 app.get("/api/admin/:id/:name", function(req, res){
   User.findOne(
@@ -76,29 +98,6 @@ app.get("/api/admin/:id/:name", function(req, res){
     }
   )
 });
-
-app.get("/test/:name", async (req, res) => {
-
-  try {
-      const paramsName = req.params.name;
-      console.log(req);
-      console.log(paramsName)
-       await db.Employees.find()
-      .then(dbWine => {
-        console.log(dbWine)
-        res.status(200).json(dbWine)
-
-      })
-      .catch(err => res.status(422).json(err));
-      
-  } catch {
-      res.status(500).json({
-          message: "Error connecting to db",
-          error
-      })
-  }
-
-}),
 
 app.post('/api/user/signup', function (req, res) {
     const { restaurant, firstName, lastName, email, password } = req.body
