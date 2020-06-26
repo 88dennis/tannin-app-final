@@ -26,6 +26,8 @@ mongoose.set('useCreateIndex', true);
 
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/wines', { useUnifiedTopology: true, useNewUrlParser: true, })
 
+// mongoose.connect('mongodb://localhost:27017/wines', { useUnifiedTopology: true, useNewUrlParser: true, })
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -34,13 +36,21 @@ app.use(session({secret: "keyboard cat", resave: true, saveUninitialized: true }
 app.use(passport.initialize());
 app.use(passport.session());
 
+// if (process.env.NODE_ENV === 'production') {
+//     const path = require('path');
+//     console.log('YOU ARE IN THE PRODUCTION ENV')
+//     app.use('/static', express.static(path.join(__dirname, './build/static')));
+//     app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, './build/'));
+//     })
+// }
+
 if (process.env.NODE_ENV === 'production') {
-    const path = require('path');
-    console.log('YOU ARE IN THE PRODUCTION ENV')
-    app.use('/static', express.static(path.join(__dirname, './build/static')));
-    app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './build/'));
-    })
+  app.use(express.static(path.join(__dirname, 'build')));
+
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
 }
 
 var transporter = nodemailer.createTransport({
