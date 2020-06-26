@@ -24,9 +24,9 @@ const User = require('./models/Employees');
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/wines', { useUnifiedTopology: true, useNewUrlParser: true, })
+// mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/wines', { useUnifiedTopology: true, useNewUrlParser: true, })
 
-// mongoose.connect('mongodb://localhost:27017/wines', { useUnifiedTopology: true, useNewUrlParser: true, })
+mongoose.connect('mongodb://localhost:27017/wines', { useUnifiedTopology: true, useNewUrlParser: true, })
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
