@@ -1,0 +1,61 @@
+{
+  "name": "tannin-app-final",
+  "version": "1.0.0",
+  "description": "API for Wine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/88dennis/tannin-app-final.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/88dennis/tannin-app-final/issues"
+  },
+  "homepage": "https://tanninwineapp.herokuapp.com/",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^2.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "mongoose": "^5.9.20",
+    "nodemailer": "^6.1.1",
+    "passport": "^0.4.0",
+    "passport-google-oauth": "^2.0.0",
+    "passport-local": "^1.0.0"
+  }
+}
+
+
+
+
+.then(employee => {
+              console.log("TATATATATTATA")
+              // var mailOptions = {
+              //   from: "uoapp8080@gmail.com",
+              //   to: employee.email,
+              //   subject: "Your accout information",
+              //   text: 'Hey, ' + employee.firstName + ' Your account is successful created and ready to use. Your username is ' + employee.email + ' and password is '
+              //   + password +'.  Please use this link to login  http://tanninwineapp.herokuapp.com/. Thanks you, ' + employee.restaurantName
+
+              // };
+              // transporter.sendMail(mailOptions, function (error, info) {
+              //     console.log(mailOptions);
+              //   if (error) {
+              //     console.log(error);
+              //   } else {
+              //     console.log('Email sent: ' + info.response);
+              //   }
+              // });
+            });
+
+
+            mongo
+
+            https://docs.mongodb.com/manual/reference/operator/update/pullAll/

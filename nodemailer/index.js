@@ -3,8 +3,8 @@
 // const transporter = nodemailer.createTransport({
 //   service: 'gmail',
 //   auth: {
-//     user: 'uoautomailer@gmail.com',
-//     pass: 'Project2UO'
+//     user: 'uoapp8080@gmail.com',
+//     pass: 'uouo2019'
 //   }
 // });
 

@@ -10,7 +10,10 @@ const passport = require('./passport')
 // const routes = require("./routes");
 const PORT = process.env.PORT || 3005;
 const mongoose = require('mongoose');
-var mailer = require("nodemailer");
+// const MongoClient = require('mongodb').MongoClient;
+// const transporter = require('./nodemailer');
+const nodemailer = require('nodemailer');
+
 const db = require('./models');
 const { Restaurants } = require('./models');
 const wineSeed = require('./Seedin').wineSeed
@@ -18,18 +21,15 @@ const empSeed = require('./EmployeeSeed').empSeed
 const restaurantSeed = require ('./RestaurantSeed').restaurantSeed
 const User = require('./models/Employees');
 
-// mongoose.set('useNewUrlParser', true);
-// mongoose.set('useFindAndModify', false);
-// mongoose.set('useCreateIndex', true);
-// mongoose.set('useUnifiedTopology', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
-mongoose.connect('mongodb://localhost:27017/wines', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/wines', { useUnifiedTopology: true, useNewUrlParser: true, })
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(cors());
-
 app.use(session({secret: "keyboard cat", resave: true, saveUninitialized: true }))
 app.use(passport.initialize());
 app.use(passport.session());
@@ -43,20 +43,26 @@ if (process.env.NODE_ENV === 'production') {
     })
 }
 
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static(path.join(__dirname, 'build')));
-
-
-//   app.get('/*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-//   });
-// }
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'uoapp8080@gmail.com',
+    pass: 'uouo2019'
+  }
+});
 
 //====================================
 //USER ROUTES - LOGIN, SIGNUP, LOGOUT
 //====================================
 
+app.get("/", function(req, res){
 
+  let obj = { 
+    "admin" : "/api/admin/:id/:name",
+    "sigup" : '/api/user/signup'
+  }
+  res.json(obj) 
+});
 
 app.get("/api/admin/:id/:name", function(req, res){
   User.findOne(
@@ -69,7 +75,30 @@ app.get("/api/admin/:id/:name", function(req, res){
       res.json(user);
     }
   )
-})
+});
+
+app.get("/test/:name", async (req, res) => {
+
+  try {
+      const paramsName = req.params.name;
+      console.log(req);
+      console.log(paramsName)
+       await db.Employees.find()
+      .then(dbWine => {
+        console.log(dbWine)
+        res.status(200).json(dbWine)
+
+      })
+      .catch(err => res.status(422).json(err));
+      
+  } catch {
+      res.status(500).json({
+          message: "Error connecting to db",
+          error
+      })
+  }
+
+}),
 
 app.post('/api/user/signup', function (req, res) {
     const { restaurant, firstName, lastName, email, password } = req.body
@@ -106,13 +135,14 @@ app.post('/api/user/login', passport.authenticate('local'), function (req, res) 
   // console.log('========++++++++++==')
 });
 
-
-
 app.post("/api/user/logout", function (req, res) {
     console.log(req.user, "LOGOUT")
     if (req.user) {
         req.session.destroy()
         res.clearCookie('connect.sid') // clean up!
+          mongoose.connection.close(function () {
+            console.log('Mongoose connection disconnected');
+          });
         return res.json({ msg: 'OK' })
     } else {
         return res.json({ msg: 'no user to log out!' })
@@ -122,7 +152,6 @@ app.post("/api/user/logout", function (req, res) {
 //===========================================
 // END - USER ROUTES - LOGIN, SIGNUP, LOGOUT
 //===========================================
-
 
 //=================
 //EMPLOYEES ROUTES
@@ -337,6 +366,28 @@ app.put("/api/addwine", function (req, res) {
 //ADD AND DELETE EMPLOYEE ROUTES
 //==============================
 
+function sendEmail(employee, password){
+  console.log(employee, password)
+  var mailOptions = {
+  from: "uoapp8080@gmail.com",
+  to: employee.email,
+  subject: "Your accout information",
+  text: 'Hey, ' + employee.firstName + ' Your account is successful created and ready to use. Your username is ' + employee.email + ' and password is '
+   + password +'.  Please use this link to login  http://tannin.herokuapp.com/. Thanks you, ' + employee.restaurantName
+
+  //  "Hey, " +employee.firstName + "Your account is successful created, and ready to use. " + "Your username is: " +employee.email +","
+  //   + req.body.lenderName + " has set a due date of " + req.body.dueDate + ". Please login to UO to confirm this transaction. Thank you, UO."
+};
+transporter.sendMail(mailOptions, function (error, info) {
+    console.log(mailOptions);
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
+}
+
 app.post("/api/addEmployee", function (req, res) {
     const { name, lastName, email, password, restaurantName, restaurantId } = req.body;
     console.log("////////////////");
@@ -355,32 +406,17 @@ app.post("/api/addEmployee", function (req, res) {
                 isAdmin: false
             }).then(employee => {
                 console.log("DENNIS")
-                console.log(employee);
-                console.log("DENNIS")
-                // var mailOptions = {
-                //     from: "uoautomailer@gmail.com",
-                //     to: employee.email,
-                //     subject: "Your accout information",
-                //     text: 'Hey, ' + employee.firstName + ' Your account is successful created and ready to use. Your username is ' + employee.email + ' and password is '
-                //      + password +'.  Please use this link to login  http://tannin.herokuapp.com/. Thanks you, ' + employee.restaurantName
+                sendEmail(employee, password);
 
-                //     //  "Hey, " +employee.firstName + "Your account is successful created, and ready to use. " + "Your username is: " +employee.email +","
-                //     //   + req.body.lenderName + " has set a due date of " + req.body.dueDate + ". Please login to UO to confirm this transaction. Thank you, UO."
-                //   };
-                  // transporter.sendMail(mailOptions, function (error, info) {
-                  //     console.log(mailOptions);
-                  //   if (error) {
-                  //     console.log(error);
-                  //   } else {
-                  //     console.log('Email sent: ' + info.response);
-                  //   }
-                  // });
+                // console.log(employee);
+                console.log("DENNIS")
 
                 db.Restaurants.findOneAndUpdate({ _id: employee.restaurantId }, { $push: { Employees: employee._id } }, { new: true }).then(resturant => {
                     console.log(employee, resturant);
                     res.json({ employee, resturant });
                 });
             });
+
         }
         else {
             res.json("Employee already exists");
@@ -403,19 +439,14 @@ app.put('/api/deleteEmployee', function (req, res) {
     // })
 
     // 5ef2a3cceacc066c180344cd
+
     db.Employees.deleteOne({_id:id}).then(emp=>{
       console.log("DELETEEMP")
       console.log(emp)
       res.json(emp)
   })
-
-//   db.Employees.findOne({_id:id}).then(emp=>{
-//     console.log("CHECKEMP")
-//     console.log(emp)
-//     // res.json(emp)
-// })
-    
 });
+
 
 //DELETE WINE CORRECT
 // app.put("/api/restaurant/delete", function(req, res) {
@@ -476,7 +507,7 @@ app.get("/api/wineseed", function(req, res){
 });
 
 app.get("/api/restaurantseed", function(req, res){
-    db.Restaurants.remove({})
+    db.Restaurants.collection.remove({})
     .then(() => db.Restaurants.collection.insertMany(restaurantSeed))
     .then(data => {
     res.send('Restaurants successfully Seeded!')
@@ -486,16 +517,59 @@ app.get("/api/restaurantseed", function(req, res){
 });
 });
 
+app.get('/api/deleteAllEmployees', function (req, res) {
+  console.log(req.body, "DELETEDALLEMPLOYEES");
+  // const {id, restaurantId} = req.body
+  // console.log(restaurantId);
+  // 5ef43af7c187bbfec446cfb8
+//   db.Employees.collection.update( { restaurantId: "5ef43af7c187bbfec446cfb8" }, { $pullAll: { isAdmin: [ false ] } } ).then(employee => {
+//     console.log(employee);
+//     res.json({ employee });
+// }).catch(function(err) {
+//   // If an error occurs, send it back to the client
+//   res.json(err);
+// });;
+
+try {
+  db.Employees.collection.deleteMany( { "isAdmin" : false } );
+
+  res.send("SUCCESSFULLY DELETED")
+} catch (e) {
+
+console.log("ERROR ON DELETING ALL")
+
+  print (e);
+}
+
+})
+
 app.get("/api/empseed", function (req, res) {
-  db.Employees.remove({})
+  // db.Employees.collection.deleteMany({})
+
+  // db.Employees.update( { _id: restaurantId }, { $pullAll: { scores: [ 0, 5 ] } } )
+  try {
+    db.Employees.collection.deleteMany( { "isAdmin" : false, "restaurantId" : "5ef43af7c187bbfec446cfb8" } );
+    db.Employees.collection.deleteMany( { "email" : "joe@tutta.com" } );
+    // db.Employees.collection.find({}).then(emp => {
+    //   console.log(emp)
+    // });
+    // db.Employees.find().then( emp => {
+    //   console.log(emp);
+
+    //   // res.send("HELLOS")
+    // })
 
     db.Employees.collection.insert(empSeed)
-      .then(data => {
-        res.send('Joe was successfully Seeded!')
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    .then(data => {
+      console.log("SEEDED THIS EMPLOYEE")
+      res.send(JSON.stringify(data) + ' Joe was successfully Seeded! - SUCCESSFULLY DELETED OTHERS')
+    })
+  
+  } catch (e) {
+  
+  console.log("ERROR ON DELETING ALL")
+  
+  }
   });
 
 //======================
