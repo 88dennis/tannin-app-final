@@ -37,6 +37,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+//CORRECT!!!!!!!!!!
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'build')));
 
@@ -528,7 +529,10 @@ app.get("/api/wineseed", function(req, res){
 });
 
 app.get("/api/restaurantseed", function(req, res){
-    db.Restaurants.collection.remove({})
+
+  db.Employees.collection.deleteMany({})
+
+    db.Restaurants.collection.deleteMany({})
     .then(() => db.Restaurants.collection.insertMany(restaurantSeed))
     .then(data => {
     res.send('Restaurants successfully Seeded!')
