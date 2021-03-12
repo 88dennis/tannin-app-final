@@ -1,0 +1,33 @@
+.overlay9 {
+
+   position: absolute;
+  height: 40%;
+  min-height: 350px;
+  /* height:100vh; */
+  /* height:inherit; */
+  /* min-height: 100vh; */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* color: black; */
+  background-color: steelblue;
+  color: white;
+
+  /* background: -webkit-gradient(linear, left top, left bottom, from(rgb(248, 252, 250)), to(rgb(102, 42, 42))) fixed; */
+  z-index: 2;
+  /* overflow: hidden; */
+  border-bottom-right-radius: 20px;
+  min-width: 300px;
+  width: 30%;
+  box-shadow: 2px 1px 2px rgb(49, 46, 46), 0 2px 2px rgb(59, 58, 58);
+  padding-top: 30px;
+  padding-left: 30px;
+  
+  }
+
+  .btnLogoutWrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+  

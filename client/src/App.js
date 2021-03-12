@@ -1,0 +1,30 @@
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from "./pages/Home"
+// import Home from "./pages/Home";
+import Wines from "./pages/Wines";
+import EmployeePage from "./pages/EmployeePage";
+import Admin from "./pages/Admin";
+// import Saved from "./pages/Saved";
+import NoMatch from "./pages/NoMatch";
+import Quiz from "./pages/Quiz";
+// import Nav from "./components/Nav";
+// import Question from "./pages/Question";
+function App() {
+  return (
+    <Router basename = {process.env.PUBLIC_URL}>
+      
+        {/* <Nav /> */}
+        <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/admin/:userId/userpage" component={Admin} />
+        <Route exact path="/admin/:userId/wines" component={Wines} />
+        <Route exact path="/admin/:userId/quiz" component={Quiz } />
+        <Route exact path="/employeepage/:userId/employee" component={EmployeePage} />
+          <Route component={NoMatch} />
+        </Switch>
+    </Router>
+  );
+}
+
+export default App;
