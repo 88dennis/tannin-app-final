@@ -179,9 +179,9 @@ app.post("/api/user/logout", function (req, res) {
     if (req.user) {
         req.session.destroy()
         res.clearCookie('connect.sid') // clean up!
-          // mongoose.connection.close(function () {
-          //   console.log('Mongoose connection disconnected');
-          // });
+          mongoose.connection.close(function () {
+            console.log('Mongoose connection disconnected');
+          });
         return res.json({ msg: 'OK' })
     } else {
         return res.json({ msg: 'no user to log out!' })
